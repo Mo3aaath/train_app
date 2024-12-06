@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Payment Page</h1>
+    </header>
+
+    <main>
+      <section id="paymentSection">
+        <h2>Complete Payment</h2>
+        <p id="bookingDetails"></p>
+        <form id="paymentForm">
+          <label for="cardNumber">Card Number:</label>
+          <input
+            type="text"
+            id="cardNumber"
+            placeholder="Enter card number"
+            required
+          />
+          <label for="expiryDate">Expiry Date:</label>
+          <input type="month" id="expiryDate" required />
+          <label for="cvv">CVV:</label>
+          <input type="password" id="cvv" placeholder="Enter CVV" required />
+          <button type="submit">Pay Now</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Train Reservation System</p>
+    </footer>
+
+    <script src="js/payment.js"></script>
+  </body>
+</html>
