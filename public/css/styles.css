@@ -1,14 +1,123 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #f5f7fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
+/* Header Styles */
+header {
+  background: #007bff;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header button {
+  background: #fff;
+  color: #007bff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+header button:hover {
+  background: #e6e6e6;
+}
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #007bff;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Section Styles */
+main {
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+section h2 {
+  color: #333;
+}
+
+/* Form Styles */
+form {
+  margin-top: 1rem;
+}
+
+form input,
+form button {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form button {
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #0056b3;
+}
+
+/* Results and Status Messages */
+#searchResults,
+#bookingStatus,
+#paymentStatus {
+  margin-top: 1rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+#searchResults ul {
+  list-style: none;
+  padding: 0;
+}
+
+#searchResults li {
+  margin-bottom: 0.5rem;
+  background: #f9f9f9;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Login-Specific Styles */
 .login-container {
   background: #ffffff;
   padding: 2rem;
@@ -17,26 +126,26 @@ body {
   width: 100%;
   max-width: 400px;
   text-align: center;
-  
+  margin: 5rem auto;
 }
 
-h1 {
+.login-container h1 {
   margin-bottom: 1.5rem;
   color: #333;
 }
 
-.form-group {
+.login-container .form-group {
   margin-bottom: 1rem;
   text-align: left;
 }
 
-label {
+.login-container label {
   display: block;
   margin-bottom: 0.5rem;
   color: #555;
 }
 
-input {
+.login-container input {
   width: 100%;
   padding: 0.8rem;
   border: 1px solid #ddd;
@@ -44,13 +153,13 @@ input {
   font-size: 1rem;
 }
 
-input:focus {
+.login-container input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.login-button {
+.login-container .login-button {
   width: 100%;
   padding: 0.8rem;
   background: #007bff;
@@ -62,21 +171,47 @@ input:focus {
   margin-top: 1rem;
 }
 
-.login-button:hover {
+.login-container .login-button:hover {
   background: #0056b3;
 }
 
-.signup-link {
+.login-container .signup-link {
   margin-top: 1rem;
   font-size: 0.9rem;
   color: #555;
 }
 
-.signup-link a {
+.login-container .signup-link a {
   color: #007bff;
   text-decoration: none;
 }
 
-.signup-link a:hover {
+.login-container .signup-link a:hover {
   text-decoration: underline;
+}
+
+#seatLayout {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  margin: 20px 0;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  background-color: green; /* Available seat */
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 5px;
+}
+
+.seat:hover {
+  transform: scale(1.1);
+}
+
+.seat[style*="red"] {
+  pointer-events: none;
+  cursor: not-allowed;
 }
