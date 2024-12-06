@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Mock train data with seats
+  // Mock train data with seats, waiting list, and reservations
   const trains = [
     {
       number: "12345",
@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
       arrival: "2:00 PM",
       date: "2024-12-10",
       seats: Array(50).fill(0), // 0 means available, 1 means booked
+      waitingList: [], // Store passenger details in the waiting list
+      reservations: [], // Temporary reservations with deadlines
     },
     {
       number: "67890",
@@ -20,6 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
       arrival: "4:00 PM",
       date: "2024-12-10",
       seats: Array(50).fill(0),
+      waitingList: [],
+      reservations: [],
     },
   ];
 
@@ -55,10 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let resultsHTML = "<h3>Available Trains:</h3><ul>";
         matchingTrains.forEach((train, index) => {
           resultsHTML += `<li>
-                    <strong>${train.name} (${train.number})</strong><br>
-                    Departure: ${train.departure}, Arrival: ${train.arrival}<br>
-                    <button onclick="selectTrain(${index})">Book</button>
-                </li>`;
+                  <strong>${train.name} (${train.number})</strong><br>
+                  Departure: ${train.departure}, Arrival: ${train.arrival}<br>
+                  <button onclick="selectTrain(${index})">Book</button>
+              </li>`;
         });
         resultsHTML += "</ul>";
         searchResults.innerHTML = resultsHTML;
@@ -76,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Display train details
     const trainDetails = document.getElementById("trainDetails");
     trainDetails.innerHTML = `<strong>${selectedTrain.name} (${selectedTrain.number})</strong><br>
-                                  Departure: ${selectedTrain.departure}, Arrival: ${selectedTrain.arrival}`;
+                                Departure: ${selectedTrain.departure}, Arrival: ${selectedTrain.arrival}`;
 
     // Generate seat layout
     const seatLayout = document.getElementById("seatLayout");
@@ -85,11 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const seatDiv = document.createElement("div");
       seatDiv.classList.add("seat");
       seatDiv.textContent = index + 1;
-      seatDiv.style.backgroundColor = seat === 0 ? "green" : "red";
+      seatDiv.style.backgroundColor =
+        seat === 0 ? "green" : seat === 2 ? "yellow" : "red";
       seatDiv.onclick = () => toggleSeat(index);
       seatDiv.style.cursor = seat === 0 ? "pointer" : "not-allowed";
       seatDiv.dataset.index = index;
-      if (seat === 1) seatDiv.onclick = null;
+      if (seat !== 0) seatDiv.onclick = null;
       seatLayout.appendChild(seatDiv);
     });
 
@@ -99,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to toggle seat selection
   function toggleSeat(index) {
-    if (selectedTrain.seats[index] === 1) return; // Already booked
+    if (selectedTrain.seats[index] !== 0) return; // Already booked or temporarily reserved
 
     const seatDiv = document.querySelector(`[data-index="${index}"]`);
     if (selectedSeats.includes(index)) {
@@ -120,28 +125,86 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Save booking details to sessionStorage
-      sessionStorage.setItem(
-        "bookingDetails",
-        JSON.stringify({
-          trainName: selectedTrain.name,
-          trainNumber: selectedTrain.number,
-          seats: selectedSeats,
-        })
-      );
+      const passenger = { name: "John Doe", seatCount: selectedSeats.length }; // Mock passenger data
 
-      // Update train seat data
-      selectedSeats.forEach((seatIndex) => {
-        selectedTrain.seats[seatIndex] = 1; // Mark seat as booked
-      });
-
-      alert(
-        `Seats confirmed: ${selectedSeats
-          .map((seat) => seat + 1)
-          .join(", ")}. Redirecting to payment.`
-      );
-      window.location.href = "payment.html"; // Redirect to payment page
+      if (selectedSeats.length > 0) {
+        addTemporaryReservation(selectedTrain, passenger, selectedSeats);
+        alert(
+          `Seats temporarily reserved: ${selectedSeats
+            .map((seat) => seat + 1)
+            .join(", ")}. Please complete payment within 15 minutes.`
+        );
+        sessionStorage.setItem(
+          "bookingDetails",
+          JSON.stringify({
+            trainName: selectedTrain.name,
+            trainNumber: selectedTrain.number,
+            seats: selectedSeats,
+          })
+        );
+        window.location.href = "payment.html"; // Redirect to payment page
+      } else {
+        addToWaitingList(selectedTrain, passenger);
+      }
     });
+
+  // Add to waiting list
+  function addToWaitingList(train, passenger) {
+    train.waitingList.push(passenger);
+    alert(`No seats available. You have been added to the waiting list.`);
+  }
+
+  // Add temporary reservation
+  function addTemporaryReservation(train, passenger, seats) {
+    const deadline = Date.now() + 15 * 60 * 1000; // 15-minute payment deadline
+    train.reservations.push({ passenger, seats, deadline });
+    seats.forEach((seatIndex) => (train.seats[seatIndex] = 2)); // Mark as temporarily reserved
+  }
+
+  // Automatic cancellation of reservations
+  function checkAndCancelReservations(train) {
+    const now = Date.now();
+    train.reservations = train.reservations.filter((reservation) => {
+      if (now > reservation.deadline) {
+        // Cancel reservation and free seats
+        reservation.seats.forEach((seatIndex) => (train.seats[seatIndex] = 0));
+        alert(
+          `Reservation for ${reservation.passenger.name} has been cancelled due to non-payment.`
+        );
+        allocateSeatsFromWaitingList(train);
+        return false; // Remove expired reservation
+      }
+      return true; // Keep valid reservation
+    });
+  }
+
+  // Periodically check reservations
+  setInterval(() => {
+    trains.forEach((train) => checkAndCancelReservations(train));
+  }, 60 * 1000); // Check every minute
+
+  // Allocate seats from waiting list
+  function allocateSeatsFromWaitingList(train) {
+    while (train.waitingList.length > 0 && train.seats.includes(0)) {
+      const passenger = train.waitingList.shift();
+      const availableSeats = train.seats
+        .map((seat, index) => (seat === 0 ? index : null))
+        .filter((index) => index !== null);
+      const allocatedSeats = availableSeats.slice(0, passenger.seatCount);
+
+      if (allocatedSeats.length < passenger.seatCount) {
+        train.waitingList.unshift(passenger); // Put the passenger back if not enough seats
+        break;
+      }
+
+      allocatedSeats.forEach((seatIndex) => (train.seats[seatIndex] = 1));
+      alert(
+        `Seats allocated to ${passenger.name}: ${allocatedSeats
+          .map((seat) => seat + 1)
+          .join(", ")}`
+      );
+    }
+  }
 
   // Logout functionality
   document
