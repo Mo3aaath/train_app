@@ -215,3 +215,9 @@ form button:hover {
   pointer-events: none;
   cursor: not-allowed;
 }
+#seatLayoutAdd {
+  display: none; /* Initially hidden */
+  grid-template-columns: repeat(10, 1fr); /* 10 seats per row */
+  gap: 5px;
+  margin-top: 20px;
+}

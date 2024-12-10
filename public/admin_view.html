@@ -1,11 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Dashboard</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Admin Dashboard</h1>
+      <button id="logoutButton">Logout</button>
+    </header>
+
+    <main>
+      <section id="addReservationSection">
+        <h2>Add Reservation</h2>
+        <form id="addReservationForm">
+          <label for="fromStation">From Station:</label>
+          <input type="text" id="fromStation" required />
+          <label for="toStation">To Station:</label>
+          <input type="text" id="toStation" required />
+          <label for="travelDate">Travel Date:</label>
+          <input type="date" id="travelDate" required />
+          <button type="submit">Search</button>
+        </form>
+        <div id="searchResults"></div>
+
+        <section id="seatBooking" style="display: none">
+          <h2>Select Seats</h2>
+          <p id="trainDetails"></p>
+          <div id="seatLayout"></div>
+          <button id="confirmBooking">Confirm Reservation</button>
+        </section>
+      </section>
+
+      <!-- Edit Reservation Section -->
+      <section id="editReservationSection">
+        <h2>Edit Reservation</h2>
+        <form id="editReservationForm">
+          <label for="editTrainNumber">Train Number:</label>
+          <input type="text" id="editTrainNumber" required />
+          <label for="editPassengerName">Passenger Name:</label>
+          <input type="text" id="editPassengerName" required />
+          <button type="button" id="editReservation">Edit Reservation</button>
+        </form>
+        <div id="seatLayoutEdit"></div>
+      </section>
+
+      <!-- Delete Reservation Section -->
+      <section id="deleteReservationSection">
+        <h2>Delete Reservation</h2>
+        <form id="deleteReservationForm">
+          <label for="deleteTrainNumber">Train Number:</label>
+          <input type="text" id="deleteTrainNumber" required />
+          <label for="deletePassengerName">Passenger Name:</label>
+          <input type="text" id="deletePassengerName" required />
+          <button type="button" id="deleteReservation">
+            Delete Reservation
+          </button>
+        </form>
+      </section>
+
+      <!-- Assign Staff Section -->
+      <section id="assignStaffSection">
+        <h2>Assign Staff</h2>
+        <form id="assignStaffForm">
+          <label for="assignStaffName">Staff Name:</label>
+          <input type="text" id="assignStaffName" required />
+          <label for="assignStaffRole">Role:</label>
+          <select id="assignStaffRole" required>
+            <option value="Driver">Driver</option>
+            <option value="Engineer">Engineer</option>
+          </select>
+          <label for="assignTrainNumber">Train Number:</label>
+          <input type="text" id="assignTrainNumber" required />
+          <label for="assignDate">Date:</label>
+          <input type="date" id="assignDate" required />
+          <button type="submit">Assign Staff</button>
+        </form>
+      </section>
+
+      <!-- Promote Waitlisted Passenger Section -->
+      <section id="promoteWaitlistSection">
+        <h2>Promote Waitlisted Passenger</h2>
+        <form id="promoteWaitlistForm">
+          <label for="promoteTrainNumber">Train Number:</label>
+          <input type="text" id="promoteTrainNumber" required />
+          <button type="submit">Promote Passenger</button>
+        </form>
+      </section>
+
+      <section id="reportsSection">
+        <h2>Generate Reports</h2>
+        <button id="generateReport">Generate Report for Active Trains</button>
+        <button id="listStationsReport">Generate Report for Stations</button>
+        <form id="waitlistedLoyaltyForm" style="margin-top: 20px;">
+            <label for="trainNumber">Enter Train Number:</label>
+            <input type="text" id="trainNumber" required>
+            <button type="submit">View Waitlisted Loyalty Passengers</button>
+        </form>
+        <div id="reportResults"></div>
+    </section>
     
-</body>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Train Reservation System</p>
+    </footer>
+
+    <script src="js/admin_view.js"></script>
+  </body>
 </html>
