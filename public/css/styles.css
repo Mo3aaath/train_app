@@ -8,7 +8,7 @@ body {
 
 /* Header Styles */
 header {
-  background: #007bff;
+  background: rgb(48, 2, 85);
   color: white;
   padding: 1rem;
   display: flex;
@@ -22,7 +22,7 @@ header h1 {
 
 header button {
   background: #fff;
-  color: #007bff;
+  color: rgb(48, 2, 85);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -37,7 +37,7 @@ header button:hover {
 footer {
   text-align: center;
   padding: 1rem;
-  background: #007bff;
+  background: rgb(48, 2, 85);
   color: white;
   position: fixed;
   bottom: 0;
@@ -80,12 +80,12 @@ form button {
 
 form input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: rgb(48, 2, 85);
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 form button {
-  background: #007bff;
+  background: rgb(48, 2, 85);
   color: white;
   border: none;
   cursor: pointer;
@@ -155,14 +155,14 @@ form button:hover {
 
 .login-container input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: rgb(48, 2, 85);
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .login-container .login-button {
   width: 100%;
   padding: 0.8rem;
-  background: #007bff;
+  background: rgb(48, 2, 85);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -172,7 +172,7 @@ form button:hover {
 }
 
 .login-container .login-button:hover {
-  background: #0056b3;
+  background: rgb(48, 2, 85);
 }
 
 .login-container .signup-link {
@@ -182,7 +182,7 @@ form button:hover {
 }
 
 .login-container .signup-link a {
-  color: #007bff;
+  color: rgb(48, 2, 85);
   text-decoration: none;
 }
 

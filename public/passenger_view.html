@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Passenger Dashboard</title>
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body>
-        <header>
-            <h1>Passenger Dashboard</h1>
-            <button id="logoutButton">Logout</button>
-        </header>
-        
-        <main>
-            <h1>Hello, Muath👋</h1>
-            <!-- Search for Trains -->
-            <section id="searchTrains">
-                <h2>Search for Trains</h2>
-                <form id="searchForm">
-                    <input type="text" id="fromStation" placeholder="From Station" required>
-                    <input type="text" id="toStation" placeholder="To Station" required>
-                    <input type="date" id="travelDate" required>
-                    <button type="submit">Search</button>
-                </form>
-                <div id="searchResults"></div>
-            </section>
-            
-            <!-- Seat Booking Section -->
-            <section id="seatBooking" style="display: none;">
-                <h2>Select Seats</h2>
-                <p id="trainDetails"></p>
-                <div id="seatLayout"></div>
-                <button id="confirmBooking">Confirm Booking</button>
-            </section>
-            
-            <!-- Reports -->
-            <section id="reportsSection">
-                <h2>Generate Reports</h2>
-                <button id="generateReport">Generate Report for Active Trains</button>
-                <button id="fetchReservations">View My Reservations</button>
-                <div id="reportResults"></div>
-            </section>
-            
-            
-        </main>
-        
-        <footer>
-            <p>&copy; 2024 Train Reservation System</p>
-        </footer>
-        
-        <script src="js/passenger_view.js"></script>
-    </body>
-    </html>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passenger Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Passenger Dashboard</h1>
+      <button id="logoutButton">Logout</button>
+    </header>
+
+    <main>
+      <h1>Hello, <span id="passengerName">Guest👋</span></h1>
+      <!-- Search for Trains -->
+      <section id="searchTrains">
+        <h2>Search for Trains</h2>
+        <form id="searchForm">
+          <input
+            type="text"
+            id="fromStation"
+            placeholder="From Station"
+            required
+          />
+          <input type="text" id="toStation" placeholder="To Station" required />
+          <input type="date" id="travelDate" required />
+          <button type="submit">Search</button>
+        </form>
+        <div id="searchResults"></div>
+      </section>
+
+      <!-- Seat Booking Section -->
+      <section id="seatBooking" style="display: none">
+        <h2>Select Seats</h2>
+        <p id="trainDetails"></p>
+        <div id="seatLayout"></div>
+        <button id="confirmBooking">Confirm Booking</button>
+        <button id="waitlistButton" style="display: none">Join Waitlist</button>
+      </section>
+
+      <!-- Reports -->
+      <section id="reportsSection">
+        <h2>Generate Reports</h2>
+        <button id="generateReport">Generate Report for Active Trains</button>
+        <button id="fetchReservations">View My Reservations</button>
+        <div id="reportResults"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Train Reservation System</p>
+    </footer>
+
+    <script src="js/passenger_view.js"></script>
+  </body>
+</html>

@@ -15,22 +15,24 @@
     <main>
       <section id="addReservationSection">
         <h2>Add Reservation</h2>
-        <form id="addReservationForm">
-          <label for="fromStation">From Station:</label>
-          <input type="text" id="fromStation" required />
-          <label for="toStation">To Station:</label>
-          <input type="text" id="toStation" required />
-          <label for="travelDate">Travel Date:</label>
+        <form id="searchTrainForm">
+          <input
+            type="text"
+            id="fromStation"
+            placeholder="From Station"
+            required
+          />
+          <input type="text" id="toStation" placeholder="To Station" required />
           <input type="date" id="travelDate" required />
-          <button type="submit">Search</button>
+          <button type="submit">Search Trains</button>
         </form>
-        <div id="searchResults"></div>
+        <div id="trainSearchResults"></div>
 
         <section id="seatBooking" style="display: none">
           <h2>Select Seats</h2>
           <p id="trainDetails"></p>
           <div id="seatLayout"></div>
-          <button id="confirmBooking">Confirm Reservation</button>
+          <button id="confirmBooking">Confirm Booking</button>
         </section>
       </section>
 
@@ -38,26 +40,51 @@
       <section id="editReservationSection">
         <h2>Edit Reservation</h2>
         <form id="editReservationForm">
-          <label for="editTrainNumber">Train Number:</label>
-          <input type="text" id="editTrainNumber" required />
-          <label for="editPassengerName">Passenger Name:</label>
-          <input type="text" id="editPassengerName" required />
-          <button type="button" id="editReservation">Edit Reservation</button>
+          <input
+            type="text"
+            id="editPassengerId"
+            placeholder="Passenger ID"
+            required
+          />
+          <input
+            type="text"
+            id="editTrainNumber"
+            placeholder="Train Number"
+            required
+          />
+          <button id="fetchReservationBtn" type="button">
+            Fetch Reservation
+          </button>
         </form>
-        <div id="seatLayoutEdit"></div>
+        <section id="editReservationDetails" style="display: none">
+          <h2>Edit Reservation</h2>
+          <div id="reservationDetails"></div>
+          <div id="seatLayout"></div>
+          <button id="confirmEditReservation">Confirm Changes</button>
+        </section>
       </section>
 
       <!-- Delete Reservation Section -->
       <section id="deleteReservationSection">
         <h2>Delete Reservation</h2>
         <form id="deleteReservationForm">
-          <label for="deleteTrainNumber">Train Number:</label>
-          <input type="text" id="deleteTrainNumber" required />
-          <label for="deletePassengerName">Passenger Name:</label>
-          <input type="text" id="deletePassengerName" required />
-          <button type="button" id="deleteReservation">
-            Delete Reservation
-          </button>
+          <label for="deleteTrainId">Train ID:</label>
+          <input
+            type="text"
+            id="deleteTrainId"
+            placeholder="Enter Train ID"
+            required
+          />
+
+          <label for="deletePassengerId">Passenger ID:</label>
+          <input
+            type="text"
+            id="deletePassengerId"
+            placeholder="Enter Passenger ID"
+            required
+          />
+
+          <button type="submit">Delete Reservation</button>
         </form>
       </section>
 
@@ -65,26 +92,23 @@
       <section id="assignStaffSection">
         <h2>Assign Staff</h2>
         <form id="assignStaffForm">
-          <label for="assignStaffName">Staff Name:</label>
-          <input type="text" id="assignStaffName" required />
-          <label for="assignStaffRole">Role:</label>
-          <select id="assignStaffRole" required>
-            <option value="Driver">Driver</option>
-            <option value="Engineer">Engineer</option>
+          <label for="trainId">Train ID:</label>
+          <input type="text" id="trainId" required />
+          <label for="staffRole">Role:</label>
+          <select id="staffRole" required>
+            <option value="driver">Driver</option>
+            <option value="engineer">Engineer</option>
           </select>
-          <label for="assignTrainNumber">Train Number:</label>
-          <input type="text" id="assignTrainNumber" required />
-          <label for="assignDate">Date:</label>
-          <input type="date" id="assignDate" required />
+          <label for="staffName">Staff Name:</label>
+          <input type="text" id="staffName" required />
           <button type="submit">Assign Staff</button>
         </form>
       </section>
 
-      <!-- Promote Waitlisted Passenger Section -->
       <section id="promoteWaitlistSection">
         <h2>Promote Waitlisted Passenger</h2>
         <form id="promoteWaitlistForm">
-          <label for="promoteTrainNumber">Train Number:</label>
+          <label for="promoteTrainNumber">Train ID:</label>
           <input type="text" id="promoteTrainNumber" required />
           <button type="submit">Promote Passenger</button>
         </form>
@@ -94,14 +118,13 @@
         <h2>Generate Reports</h2>
         <button id="generateReport">Generate Report for Active Trains</button>
         <button id="listStationsReport">Generate Report for Stations</button>
-        <form id="waitlistedLoyaltyForm" style="margin-top: 20px;">
-            <label for="trainNumber">Enter Train Number:</label>
-            <input type="text" id="trainNumber" required>
-            <button type="submit">View Waitlisted Loyalty Passengers</button>
+        <form id="waitlistedLoyaltyForm" style="margin-top: 20px">
+          <label for="trainNumber">Enter Train Number:</label>
+          <input type="text" id="trainNumber" required />
+          <button type="submit">View Waitlisted Loyalty Passengers</button>
         </form>
         <div id="reportResults"></div>
-    </section>
-    
+      </section>
     </main>
 
     <footer>
